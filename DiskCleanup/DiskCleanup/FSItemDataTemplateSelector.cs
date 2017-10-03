@@ -11,7 +11,7 @@
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item is IDirectoryViewModel)
+            if (item is IDirSubTreeViewModel)
                 return DirectoryTemplate;
 
             if (item is IFileViewModel)

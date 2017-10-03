@@ -38,19 +38,52 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="12">
-            <TextBlock Text="Dirs and files" >
-            </TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" Margin="12">
+            <DockPanel LastChildFill="False"    >
+                <TextBox Name="tb_rootL"  Text="InitialLeft" DockPanel.Dock="Left" />
+                <Button Name="bt_PickLRoot" DockPanel.Dock="Right" MinWidth="100" Content="select"/>
+            </DockPanel>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="0" Grid.Column="1" Margin="12">
+            <DockPanel LastChildFill="False"    >
+                <TextBox Name="tb_rootR"  Text="InitialRight" DockPanel.Dock="Left"  />
+                <Button Name="bt_PickRRoot" DockPanel.Dock="Right" MinWidth="100" Content="select"/>
+            </DockPanel>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Margin="12">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TreeView Grid.Row="1" DataContext="{Binding GitHub}"
+            <TreeView Grid.Row="1" DataContext="{Binding FSL}"
                       ItemsSource="{Binding Root}"
-                      ItemTemplateSelector="{StaticResource GitHubItemDataTemplateSelector}"
+                      ItemTemplateSelector="{StaticResource FSItemDataTemplateSelector}"
+                      behav:TreeViewSelectionChangedBehavior.ChangedCommand="{Binding SelectedFolderChangedCommand}"
+                >
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                        <Setter Property="behav:TreeViewItemBehaviour.IsBroughtIntoViewWhenSelected" Value="True" />
+                        <!-- Setter Property="behav:TreeViewItemExpanded.Command" Value="{Binding Path=Data.ExpandCommand, Source={StaticResource DataContextProxy}}" / -->
+                        <Setter Property="IsExpanded" Value="{Binding IsItemExpanded, Mode=TwoWay}" />
+                        <Setter Property="IsSelected" Value="{Binding IsItemSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
+
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TreeView Grid.Row="1" DataContext="{Binding FSR}"
+                      ItemsSource="{Binding Root}"
+                      ItemTemplateSelector="{StaticResource FSItemDataTemplateSelector}"
                       behav:TreeViewSelectionChangedBehavior.ChangedCommand="{Binding SelectedFolderChangedCommand}"
                 >
                 <TreeView.ItemContainerStyle>

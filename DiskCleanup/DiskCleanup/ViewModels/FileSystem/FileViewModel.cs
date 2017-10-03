@@ -8,7 +8,7 @@ namespace DiskCleanup.ViewModels
     /// <summary>
     /// Implements a viewmodel item in the collection of FileSystem file items.
     /// </summary>
-    internal class FileViewModel : ViewModels.Base.BaseViewModel, ICloneable, IDirectoryViewModel
+    internal class FileViewModel : ViewModels.Base.BaseViewModel, ICloneable, IDirSubTreeViewModel
     {
         #region fields
         private IFSItemViewModel _parent = null;

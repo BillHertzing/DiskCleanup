@@ -55,10 +55,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behaviours\TreeViewSelectionChangedBehavior.cs" />
+    <Compile Include="Models\DirSubTree.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
-    <Compile Include="ViewModels\FileSystem\DirectoryViewModel.cs" />
+    <Compile Include="ViewModels\FileSystem\DirSubTreeViewModel.cs" />
     <Compile Include="ViewModels\FileSystem\FileViewModel.cs" />
     <Compile Include="ViewModels\FileSystem\FSViewModel.cs" />
     <Compile Include="ViewModels\SortableObservableCollection.cs" />
@@ -73,7 +74,7 @@
     </Compile>
     <Compile Include="Behaviours\TreeViewItemBehaviour.cs" />
     <Compile Include="FSItemDataTemplateSelector.cs" />
-    <Compile Include="Interfaces\IDirectoryViewModel.cs" />
+    <Compile Include="Interfaces\IDirSubTreeViewModel.cs" />
     <Compile Include="Interfaces\IFileViewModel.cs" />
     <Compile Include="Interfaces\IFSItemViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -107,8 +108,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

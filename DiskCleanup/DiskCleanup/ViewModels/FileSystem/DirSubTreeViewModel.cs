@@ -1,20 +1,21 @@
-﻿
+﻿using DiskCleanup.Interfaces;
+using DiskCleanup.Models;
+using System;
+using System.IO;
+using System.Linq;
+
 namespace DiskCleanup.ViewModels
 {
-    using DiskCleanup.Interfaces;
-    using DiskCleanup.Models;
-    using System;
 
     /// <summary>
     /// Implements a viewmodel item in the collection of FileSystem Directory tree items.
     /// </summary>
-    internal class DirectoryViewModel :  ViewModels.Base.BaseViewModel, ICloneable, IDirectoryViewModel
+    internal class DirSubTreeViewModel :  ViewModels.Base.BaseViewModel, ICloneable, IDirSubTreeViewModel
     {
         #region fields
+        private DirSubTree _dirSubTree = null;
         private IFSItemViewModel _parent = null;
-        private string _Name = string.Empty;
-
-        private readonly SortableObservableDictionaryCollection _Children = null;
+        private readonly SortableObservableDictionaryCollection _children = null;
         private bool _IsItemExpanded = false;
         private bool _IsItemSelected = false;
         #endregion fields
@@ -23,27 +24,28 @@ namespace DiskCleanup.ViewModels
         /// <summary>
         /// Class constructor
         /// </summary>
-        /// <param name="name"></param>
-        public DirectoryViewModel(
-            IDirectoryViewModel parent
-            , string name)
+        public DirSubTreeViewModel(IDirSubTreeViewModel parent, DirSubTree dirSubTree)
         {
+            _dirSubTree = dirSubTree;
             _parent = parent;
-            _Name = name;
-            _Children = new SortableObservableDictionaryCollection();
+            _children = new SortableObservableDictionaryCollection();
+            foreach (DirSubTree child in _dirSubTree.Children)
+            {
+                _children.AddItem(new DirSubTreeViewModel(this, child));
+            }
         }
 
         /// <summary>
-        /// Copy constructor copies only Name property.
+        /// Copy constructor copies only _dirSubTree property.
         /// Children and State properties are not automatically copied.
         /// </summary>
         /// <param name="copyThis"></param>
-        public DirectoryViewModel(DirectoryViewModel copyThis)
+        public DirSubTreeViewModel(DirSubTreeViewModel copyThis)
         {
             if (copyThis == null)
                 return;
 
-            this.Name = copyThis.Name;
+            this._dirSubTree = copyThis._dirSubTree;
         }
         #endregion constructors
 
@@ -64,14 +66,14 @@ namespace DiskCleanup.ViewModels
         {
             get
             {
-                return _Name;
+                return _dirSubTree.DirInfo.Name;
             }
 
             set
             {
-                if (_Name != value)
+                if (_dirSubTree.DirInfo.Name != value)
                 {
-                    _Name = value;
+                    _dirSubTree.DirInfo.MoveTo(Path.Combine(_dirSubTree.DirInfo.Parent.FullName, value));
                     NotifyPropertyChanged(() => Name);
                 }
             }
@@ -84,7 +86,7 @@ namespace DiskCleanup.ViewModels
         {
             get
             {
-                return _Children;
+                return _children;
             }
         }
 
@@ -136,7 +138,7 @@ namespace DiskCleanup.ViewModels
         /// <param name="item"></param>
         public void AddChildItem(IFSItemViewModel item)
         {
-            _Children.AddItem(item);
+            _children.AddItem(item);
         }
 
         /// <summary>
@@ -146,7 +148,7 @@ namespace DiskCleanup.ViewModels
         /// <returns></returns>
         public object Clone()
         {
-            return new DirectoryViewModel(this);
+            return new DirSubTreeViewModel(this);
         }
         #endregion methods
     }
