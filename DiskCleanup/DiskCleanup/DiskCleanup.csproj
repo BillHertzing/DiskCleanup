@@ -56,6 +56,15 @@
     </ApplicationDefinition>
     <Compile Include="Behaviours\TreeViewSelectionChangedBehavior.cs" />
     <Compile Include="Models\DirSubTree.cs" />
+    <Compile Include="UserControls\DirSubTreeViewer\DirSubTreeViewer.xaml.cs">
+      <DependentUpon>DirSubTreeViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FolderPicker.xaml.cs">
+      <DependentUpon>FolderPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DirSubTreeViewer\DirSubTreeTreeView.xaml.cs">
+      <DependentUpon>DirSubTreeTreeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
@@ -81,6 +90,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\DirSubTreeViewer\DirSubTreeViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FolderPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DirSubTreeViewer\DirSubTreeTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

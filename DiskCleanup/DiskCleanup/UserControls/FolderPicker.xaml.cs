@@ -14,28 +14,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DiskCleanup
+namespace DiskCleanup.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for FolderPicker.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FolderPicker : UserControl
     {
-        public MainWindow()
+        public FolderPicker()
         {
             InitializeComponent();
-
-            DataContext = new ViewModels.AppViewModel();
         }
 
-        private void bt_PickRRoot_Click(object sender, RoutedEventArgs e)
+        private void bt_PickClick(object sender, RoutedEventArgs e)
         {
-            PickRoot(tb_rootL.Text);
-        }
-
-        private void bt_PickLRoot_Click(object sender, RoutedEventArgs e)
-        {
-            PickRoot(tb_rootR.Text);
+            PickRoot(tb_FolderName.Text);
         }
 
         private void PickRoot(String str)
@@ -43,12 +36,10 @@ namespace DiskCleanup
             var dlg = new OpenFileDialog();
             dlg.InitialDirectory = str;
             Nullable<bool> result = dlg.ShowDialog();
-            if (result == true ) {
+            if (result == true)
+            {
                 string newRootDirSubTreeName = dlg.FileName;
             }
         }
-
-        // Use FileSystemWatcher to handle the situation where stuff is changed in real time outside the application
-
     }
 }
